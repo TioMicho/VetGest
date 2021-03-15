@@ -10,15 +10,7 @@ namespace VetGest.Models
     {
         [Key]
         public Guid ID { get; set; }
-        //datos del propietario-----
-        [Required(ErrorMessage = "Campo obligatorio")]
-        [MaxLength(50)]
-        public string DueñoNombre { get; set; }
-        [Required(ErrorMessage = "Campo obligatorio")]
-        [MaxLength(50)]
-        public string DueñoApellido { get; set; }
-        public string Domicilio { get; set; }
-        public int? Telefono { get; set; }
+        public Guid ClienteID { get; set; } //id del paciente
         // datos del paciente---
         public string Nombre { get; set; }
         [Display(Name = "Fecha Nac.")]
