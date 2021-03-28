@@ -103,6 +103,7 @@ namespace VetGest.Controllers
             {
                 try
                 {
+                    paciente.UsuarioId = _userManager.GetUserId(HttpContext.User);
                     _context.Update(paciente);
                     await _context.SaveChangesAsync();
                 }
