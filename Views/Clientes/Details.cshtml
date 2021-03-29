@@ -43,5 +43,8 @@
     <a asp-action="Index">Back to List</a>
 </div>
 <div>
-    <a asp-controller="Pacientes" asp-action="Index">Nuevo paciente</a>
+    <a asp-controller="Pacientes" asp-action="Create" asp-route-id="@Model.ID">Nuevo paciente</a>
 </div>
+    <div>
+        <a asp-controller="Pacientes" asp-action="Index" asp-route-id="@Model.ID">lista paciente</a>
+    </div>

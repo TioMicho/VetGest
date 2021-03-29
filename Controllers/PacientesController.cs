@@ -22,12 +22,26 @@ namespace VetGest.Controllers
         }
 
         // GET: Pacientes
-        public async Task<IActionResult> Index()
+        //public async Task<IActionResult> Index()
+        //{
+        //    string usuarioId = _userManager.GetUserId(HttpContext.User);
+        //    return View(await _context.Pacientes.Where(u => u.UsuarioId == usuarioId).ToListAsync());
+        //}
+
+        public async Task<IActionResult> Index(Guid? id)
         {
             string usuarioId = _userManager.GetUserId(HttpContext.User);
-            return View(await _context.Pacientes.Where(u => u.UsuarioId == usuarioId).ToListAsync());
+            List<Paciente> pacientes = new List<Paciente>();
+            if (id == null)
+            {
+                pacientes = await _context.Pacientes.Where(u => u.UsuarioId == usuarioId).ToListAsync();
+            }
+            else
+            {
+                pacientes = await _context.Pacientes.Where(u => u.UsuarioId == usuarioId).Where(p => p.ClienteID == id).ToListAsync();
+            }
+            return View(pacientes);
         }
-
         // GET: Clientes/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
@@ -47,26 +61,34 @@ namespace VetGest.Controllers
         }
 
         // GET: Pacientes/Create
-        public IActionResult Create()
+
+        public IActionResult Create(Guid? id)
         {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            ViewBag.ClienteID = id;
             return View();
-        }
+        }        //public IActionResult Create()
+        //{
+        //    return View();
+        //}
 
         // POST: Pacientes/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,ClienteID,Nombre,FechaNacimento,Raza,Especie,Pelaje,Sexo,Chip")] Paciente paciente)
+        public async Task<IActionResult> Create([Bind("ClienteID,Nombre,FechaNacimiento,Raza,Especie,Pelaje,Sexo,Chip")] Paciente paciente)
         {
             if (ModelState.IsValid)
             {
                 paciente.ID = Guid.NewGuid();
                 paciente.UsuarioId = _userManager.GetUserId(HttpContext.User);
-                //paciente.ClienteID =  (aqui tiene que ir el valor del cliente al que se lo vincula)
                 _context.Add(paciente);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), "Pacientes", new { @id = paciente.ClienteID });
             }
             return View(paciente);
         }
@@ -92,7 +114,7 @@ namespace VetGest.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("ID,ClienteID,Nombre,FechaNacimento,Raza,Especie,Pelaje,Sexo,Chip")] Paciente paciente)
+        public async Task<IActionResult> Edit(Guid id, [Bind("ID,ClienteID,Nombre,FechaNacimiento,Raza,Especie,Pelaje,Sexo,Chip")] Paciente paciente)
         {
             if (id != paciente.ID)
             {
@@ -118,7 +140,7 @@ namespace VetGest.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), "Pacientes", new { @id = paciente.ClienteID });
             }
             return View(paciente);
         }
@@ -149,7 +171,7 @@ namespace VetGest.Controllers
             var paciente = await _context.Pacientes.FindAsync(id);
             _context.Pacientes.Remove(paciente);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), "Pacientes", new { @id = paciente.ClienteID });
         }
 
         private bool PacienteExists(Guid id)
