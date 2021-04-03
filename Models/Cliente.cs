@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -23,9 +24,17 @@ namespace VetGest.Models
         [Display(Name = "Apellido")]
 
         public string DueñoApellido { get; set; }
-        
+
         public string Domicilio { get; set; }
         public int? Telefono { get; set; }
         //public Usuario Usuario { get; set; }
+        [NotMapped]
+        public string ApellidoNombre
+        {
+            get
+            {
+                return DueñoApellido + ", " + DueñoNombre;
+            }
+        }
     }
 }

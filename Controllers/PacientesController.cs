@@ -66,9 +66,11 @@ namespace VetGest.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                string usuarioId = _userManager.GetUserId(HttpContext.User);
+                ViewBag.Clientes = new SelectList(_context.Cliente.Where(c => c.UsuarioID == usuarioId), "ID", "ApellidoNombre");
             }
-            ViewBag.ClienteID = id;
+                ViewBag.ClienteID = id;
+            
             return View();
         }        //public IActionResult Create()
         //{
