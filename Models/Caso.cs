@@ -18,8 +18,8 @@ namespace VetGest.Models
         public DateTime Fecha { get; set; } // fecha y hora de creacion
 
         public string MotivoConsulta { get; set; }
-        public int? Peso { get; set; }
-        public int? Temperatura { get; set; }
+        public double? Peso { get; set; }
+        public double? Temperatura { get; set; }
         public string EstadoCorporal { get; set; }
         public string TiempoLlenadoCapilar { get; set; }
         public string Hidratacion { get; set; }
