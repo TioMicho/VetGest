@@ -29,6 +29,7 @@ namespace VetGest.Models
         public int? Telefono { get; set; }
         //public Usuario Usuario { get; set; }
         [NotMapped]
+        [Display(Name = "Cliente")]
         public string ApellidoNombre
         {
             get

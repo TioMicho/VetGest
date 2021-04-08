@@ -1,0 +1,93 @@
+﻿@model VetGest.Models.Revision
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Editar</h1>
+
+<h4>Revision</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ID" />
+            <input type="hidden" asp-for="CasoID" />
+            <input type="hidden" asp-for="Fecha" />
+            @*<div class="form-group">
+            <label asp-for="CasoID" class="control-label"></label>
+            <input asp-for="CasoID" class="form-control" />
+            <span asp-validation-for="CasoID" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Fecha" class="control-label"></label>
+            <input asp-for="Fecha" class="form-control" />
+            <span asp-validation-for="Fecha" class="text-danger"></span>
+        </div>*@
+            <div class="form-group">
+                <label asp-for="Peso" class="control-label"></label>
+                <input asp-for="Peso" class="form-control" />
+                <span asp-validation-for="Peso" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Temperatura" class="control-label"></label>
+                <input asp-for="Temperatura" class="form-control" />
+                <span asp-validation-for="Temperatura" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EstadoCorporal" class="control-label"></label>
+                <input asp-for="EstadoCorporal" class="form-control" />
+                <span asp-validation-for="EstadoCorporal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TiempoLlenadoCapilar" class="control-label"></label>
+                <input asp-for="TiempoLlenadoCapilar" class="form-control" />
+                <span asp-validation-for="TiempoLlenadoCapilar" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Hidratacion" class="control-label"></label>
+                <input asp-for="Hidratacion" class="form-control" />
+                <span asp-validation-for="Hidratacion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FrecuenciaRespiratoria" class="control-label"></label>
+                <input asp-for="FrecuenciaRespiratoria" class="form-control" />
+                <span asp-validation-for="FrecuenciaRespiratoria" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FrecuenciaCardiaca" class="control-label"></label>
+                <input asp-for="FrecuenciaCardiaca" class="form-control" />
+                <span asp-validation-for="FrecuenciaCardiaca" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AllazgosClinicos" class="control-label"></label>
+                <textarea asp-for="AllazgosClinicos" class="form-control" aria-label="With textarea" style="height: 84px;"></textarea>
+                <span asp-validation-for="AllazgosClinicos" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RecomendacionesMedicacion" class="control-label"></label>
+                <textarea asp-for="RecomendacionesMedicacion" class="form-control" aria-label="With textarea" style="height: 84px;"></textarea>
+                <span asp-validation-for="RecomendacionesMedicacion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FechaProximaCita" class="control-label"></label>
+                <input type="date" asp-for="FechaProximaCita" class="form-control" />
+                <span asp-validation-for="FechaProximaCita" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Guardar" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a class="btn btn-outline-danger" role="button" asp-action="Delete" asp-route-id="@Model.ID">¿Borrar?</a>
+    <a class="btn btn-outline-warning" role="button" asp-controller="Casos" asp-action="Index">Regresar a la lista de casos</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

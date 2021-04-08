@@ -22,11 +22,14 @@ namespace VetGest.Controllers
         }
 
         // GET: Pacientes
-        //public async Task<IActionResult> Index()
-        //{
-        //    string usuarioId = _userManager.GetUserId(HttpContext.User);
-        //    return View(await _context.Pacientes.Where(u => u.UsuarioId == usuarioId).ToListAsync());
-        //}
+        public async Task<IActionResult> IndexMain(Guid? id)
+        {
+            string usuarioId = _userManager.GetUserId(HttpContext.User);
+            List<Paciente> pacientes = new List<Paciente>();
+            pacientes = await _context.Pacientes.Include(p => p.Cliente).Where(u => u.UsuarioId == usuarioId).ToListAsync();
+
+            return View(pacientes);
+        }
 
         public async Task<IActionResult> Index(Guid? id)
         {
@@ -34,11 +37,11 @@ namespace VetGest.Controllers
             List<Paciente> pacientes = new List<Paciente>();
             if (id == null)
             {
-                pacientes = await _context.Pacientes.Where(u => u.UsuarioId == usuarioId).ToListAsync();
+                pacientes = await _context.Pacientes.Include(c => c.Cliente).Where(u => u.UsuarioId == usuarioId).ToListAsync();
             }
             else
             {
-                pacientes = await _context.Pacientes.Where(u => u.UsuarioId == usuarioId).Where(p => p.ClienteID == id).ToListAsync();
+                pacientes = await _context.Pacientes.Include(c => c.Cliente).Where(u => u.UsuarioId == usuarioId).Where(p => p.ClienteID == id).ToListAsync();
             }
             return View(pacientes);
         }

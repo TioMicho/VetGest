@@ -12,9 +12,9 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            @*<th>
+            <th>
                 @Html.DisplayNameFor(model => model.Cliente.ApellidoNombre)
-            </th>*@
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Nombre)
             </th>
@@ -29,11 +29,11 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Pelaje)
-            </th>*@
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Sexo)
             </th>
-            @*<th>
+            <th>
                 @Html.DisplayNameFor(model => model.Chip)
             </th>*@
 
@@ -43,9 +43,9 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            @*<th>
+            <th>
                 @Html.DisplayFor(modelItem => item.Cliente.ApellidoNombre)
-            </th>*@
+            </th>
             <td>
                 @Html.DisplayFor(modelItem => item.Nombre)
             </td>
@@ -60,11 +60,11 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Pelaje)
-            </td>*@
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Sexo)
             </td>
-            @*<td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Chip)
             </td>*@
 

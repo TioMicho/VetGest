@@ -9,8 +9,8 @@ using VetGest.Data;
 namespace VetGest.Migrations
 {
     [DbContext(typeof(VetGestContext))]
-    [Migration("20210330162513_casosdouble")]
-    partial class casosdouble
+    [Migration("20210404172420_casos")]
+    partial class casos
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -156,43 +156,19 @@ namespace VetGest.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("AllazgosClinicos")
-                        .HasColumnType("TEXT");
+                    b.Property<bool>("Activo")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("CasoN")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("EstadoCorporal")
-                        .HasColumnType("TEXT");
-
                     b.Property<DateTime>("Fecha")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("FrecuenciaCardiaca")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("FrecuenciaRespiratoria")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Hidratacion")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("MotivoConsulta")
                         .HasColumnType("TEXT");
 
                     b.Property<Guid>("PacienteID")
-                        .HasColumnType("TEXT");
-
-                    b.Property<double?>("Peso")
-                        .HasColumnType("REAL");
-
-                    b.Property<string>("RecomendacionesMedicacion")
-                        .HasColumnType("TEXT");
-
-                    b.Property<double?>("Temperatura")
-                        .HasColumnType("REAL");
-
-                    b.Property<string>("TiempoLlenadoCapilar")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("UsuarioId")
@@ -295,6 +271,53 @@ namespace VetGest.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("PlanSanitarios");
+                });
+
+            modelBuilder.Entity("VetGest.Models.Revision", b =>
+                {
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("AllazgosClinicos")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("CasoID")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("EstadoCorporal")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("FechaProximaCita")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FrecuenciaCardiaca")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FrecuenciaRespiratoria")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Hidratacion")
+                        .HasColumnType("TEXT");
+
+                    b.Property<double?>("Peso")
+                        .HasColumnType("REAL");
+
+                    b.Property<string>("RecomendacionesMedicacion")
+                        .HasColumnType("TEXT");
+
+                    b.Property<double?>("Temperatura")
+                        .HasColumnType("REAL");
+
+                    b.Property<string>("TiempoLlenadoCapilar")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Revisiones");
                 });
 
             modelBuilder.Entity("VetGest.Models.Usuario", b =>

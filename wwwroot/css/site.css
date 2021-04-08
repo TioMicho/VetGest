@@ -17,6 +17,13 @@ a {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+/* este .btn-naranja lo agrege yo
+*/.btn-naranja {
+    color: #ff6a00;
+    background-color: #808080;
+    border-color: #d05700;
+}
+
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
   color: #fff;

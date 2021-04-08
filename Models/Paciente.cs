@@ -14,6 +14,8 @@ namespace VetGest.Models
         public Guid ClienteID { get; set; }
         public string UsuarioId { get; set; }
         // datos del paciente---
+        [Display(Name = "Paciente")]
+
         public string Nombre { get; set; }
         [Display(Name = "Fecha Nac.")]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
@@ -23,6 +25,8 @@ namespace VetGest.Models
         public string Pelaje { get; set; }
         public string Sexo { get; set; }
         public string Chip { get; set; }
+
+    public Cliente Cliente { get; set; }
 
     }
 }

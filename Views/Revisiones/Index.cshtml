@@ -1,0 +1,112 @@
+﻿@model IEnumerable<VetGest.Models.Revision>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Revision del paciente</h2>
+
+<p>
+    <a class="btn btn-outline-warning" role="button" asp-controller="Casos" asp-action="Index">Regresar a la lista de casos</a>
+    @*<a class="btn btn-outline-warning" role="button" asp-action="Create">Nueva revision</a>*@
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            @*<th>
+            @Html.DisplayNameFor(model => model.CasoID)
+        </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.Caso.CasoN)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fecha)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.Peso)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Temperatura)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EstadoCorporal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TiempoLlenadoCapilar)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Hidratacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FrecuenciaRespiratoria)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FrecuenciaCardiaca)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.AllazgosClinicos)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.RecomendacionesMedicacion)
+            </th>*@
+            @*<th>
+                @Html.DisplayNameFor(model => model.FechaProximaCita)
+            </th>*@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            @*<td>
+            @Html.DisplayFor(modelItem => item.CasoID)
+        </td>*@
+            <th>
+                @Html.DisplayFor(model => item.Caso.CasoN)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fecha)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.Peso)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Temperatura)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EstadoCorporal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TiempoLlenadoCapilar)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hidratacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FrecuenciaRespiratoria)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FrecuenciaCardiaca)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.AllazgosClinicos)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.RecomendacionesMedicacion)
+            </td>*@
+            @*<td>
+                @Html.DisplayFor(modelItem => item.FechaProximaCita)
+            </td>*@
+            <td>
+                <a class="btn btn-outline-warning" role="button" asp-action="Edit" asp-route-id="@item.ID">Editar</a> |
+                <a class="btn btn-outline-warning" role="button" asp-action="Details" asp-route-id="@item.ID">Detalles</a> @*|*@
+                @*<a asp-action="Delete" asp-route-id="@item.ID">Delete</a>*@
+            </td>
+        </tr>
+        }
+    </tbody>
+
+</table>
+

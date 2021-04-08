@@ -4,14 +4,17 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Lista de clientes</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="btn btn-outline-warning" role="button" asp-action="Create">Nuevo cliente</a>
 </p>
 <table class="table table-striped">
     <thead>
         <tr>
+            @*<th>
+            // aqui tiene que ir la variable con el nombre del cliente
+        </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.DueñoNombre)
             </th>
@@ -21,15 +24,18 @@
             <th>
                 @Html.DisplayNameFor(model => model.Domicilio)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.Telefono)
-            </th>
+            </th>*@
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            @*<th>
+            // aqui tiene que ir la variable con el nombre del cliente
+        </th>*@
             <td>
                 @Html.DisplayFor(modelItem => item.DueñoNombre)
             </td>
@@ -39,13 +45,13 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Domicilio)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.Telefono)
-            </td>
+            </td>*@
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                <a class="btn btn-outline-warning" role="button" asp-action="Edit" asp-route-id="@item.ID">Editar</a> @*|*@
+                <a class="btn btn-outline-warning" role="button" asp-action="Details" asp-route-id="@item.ID">Detalles</a> @*|*@
+                @*<a asp-action="Delete" asp-route-id="@item.ID">Delete</a>*@
             </td>
         </tr>
 }

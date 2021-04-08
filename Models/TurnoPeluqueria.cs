@@ -17,5 +17,7 @@ namespace VetGest.Models
         public string Lugar { get; set; }
         public string PacienteID { get; set; }
         public string Telefono { get; set; }
+        public Cliente Cliente { get; set; }
+        public Paciente Paciente { get; set; }
     }
 }

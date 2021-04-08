@@ -14,6 +14,7 @@ namespace VetGest.Data
         {
         }
         public DbSet<Caso>Casos { get; set; }
+        public DbSet<Revision> Revisiones { get; set; }
         public DbSet<Paciente>Pacientes { get; set; }
         public DbSet<PlanSanitario> PlanSanitarios { get; set; }
         public DbSet<VetGest.Models.Cliente> Cliente { get; set; }

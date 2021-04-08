@@ -13,13 +13,14 @@ namespace VetGest.Controllers
 {
     public class CasosController : Controller
     {
+        //private readonly Usuario _usuario;// prueva 1
         private readonly VetGestContext _context;
         private readonly UserManager<Usuario> _userManager;
-
-        public CasosController(VetGestContext context, UserManager<Usuario> userManager)
+        public CasosController(VetGestContext context, UserManager<Usuario> userManager)/// prueva 1.aqui agregue  Usuario usuario
         {
             _context = context;
             _userManager = userManager;
+            //_usuario = usuario; // Prueva 1. 
         }
 
         // GET: Casos
@@ -27,20 +28,32 @@ namespace VetGest.Controllers
         //{
         //    return View(await _context.Casos.ToListAsync());
         //}
+        public async Task<IActionResult> IndexMain(Guid? id)
+        {
+            string usuarioId = _userManager.GetUserId(HttpContext.User);
+            List<Caso> casos = new List<Caso>();
+            //casos = await _context.Casos.Include(p => p.Paciente).Where(u => u.UsuarioId == usuarioId).ToListAsync();
+            casos = await _context.Casos.Include(p => p.Paciente).Where(u => u.UsuarioId == usuarioId).Where(c =>c.Activo == true).ToListAsync();
+
+
+            return View(casos);
+        }
+
         public async Task<IActionResult> Index(Guid? id)
         {
             string usuarioId = _userManager.GetUserId(HttpContext.User);
             List<Caso> casos = new List<Caso>();
             if (id == null)
             {
-                casos = await _context.Casos.Where(u => u.UsuarioId == usuarioId).ToListAsync();
+                casos = await _context.Casos.Include(p => p.Paciente).Where(u => u.UsuarioId == usuarioId).ToListAsync();
             }
             else
             {
-                casos = await _context.Casos.Where(u => u.UsuarioId == usuarioId).Where(p => p.PacienteID == id).ToListAsync();
+                casos = await _context.Casos.Include(p => p.Paciente).Where(u => u.UsuarioId == usuarioId).Where(p => p.PacienteID == id).ToListAsync();
             }
             return View(casos);
         }
+
 
         // GET: Casos/Details/5
         public async Task<IActionResult> Details(Guid? id)
@@ -61,13 +74,19 @@ namespace VetGest.Controllers
         }
 
         // GET: Casos/Create
+        //public IActionResult Create()
+        //{
+        //    return View();
+        //}
         public IActionResult Create(Guid? id)
         {
             if (id == null)
             {
-                return NotFound();
+                string usuarioId = _userManager.GetUserId(HttpContext.User);
+                ViewBag.Pacientes = new SelectList(_context.Pacientes.Where(c => c.UsuarioId == usuarioId), "ID", "Nombre");
             }
             ViewBag.PacienteID = id;
+
             return View();
         }
 
@@ -76,13 +95,19 @@ namespace VetGest.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CasoN,PacienteID,UsuarioId,Fecha,MotivoConsulta,Peso,Temperatura,EstadoCorporal,TiempoLlenadoCapilar,Hidratacion,FrecuenciaRespiratoria,FrecuenciaCardiaca,AllazgosClinicos,RecomendacionesMedicacion")] Caso caso)
+        public async Task<IActionResult> Create([Bind("CasoN,PacienteID,Fecha,MotivoConsulta")] Caso caso)
         {
+   
             if (ModelState.IsValid)
             {
                 caso.ID = Guid.NewGuid();
                 caso.Fecha = DateTime.Now;
+                caso.Activo = true;
+                var usuario = await _userManager.GetUserAsync(HttpContext.User);
                 caso.UsuarioId = _userManager.GetUserId(HttpContext.User);
+                usuario.LocalCasoN++;
+                caso.CasoN = usuario.LocalCasoN ;
+                await _userManager.UpdateAsync(usuario);
                 _context.Add(caso);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index), "Casos", new { @id = caso.PacienteID });
@@ -111,7 +136,7 @@ namespace VetGest.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("ID,CasoN,PacienteID,UsuarioId,Fecha,MotivoConsulta,Peso,Temperatura,EstadoCorporal,TiempoLlenadoCapilar,Hidratacion,FrecuenciaRespiratoria,FrecuenciaCardiaca,AllazgosClinicos,RecomendacionesMedicacion")] Caso caso)
+        public async Task<IActionResult> Edit(Guid id, [Bind("ID,CasoN,PacienteID,UsuarioId,Fecha,MotivoConsulta,Activo")] Caso caso)
         {
             if (id != caso.ID)
             {

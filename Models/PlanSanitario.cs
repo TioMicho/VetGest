@@ -17,6 +17,7 @@ namespace VetGest.Models
         public DateTime Fecha { get; set; } // fecha y hora de creacion
         public string VacunaAntiparasitario{ get; set; }
         public DateTime? FechaRefuerzo { get; set; } // fecha y hora de la siguente dosis (usar en una funcionde recordatorio)
+        public Paciente Paciente { get; set; }
 
 
     }
