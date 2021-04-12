@@ -1,118 +1,14 @@
-﻿@*@{
-        ViewData["Title"] = "Home Page";
-    }
-    <div class="main">
-        <div id="dp"></div>
-    </div>
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<div class="main">
+    <div id="dp"></div>
+</div>
 
-    @section Scripts{
-
-
-        <script>
-      var dp = new DayPilot.Calendar("dp", {
-        locale: "es-es",
-        viewType: "Day",
-        cellHeight: 30,
-        allowEventOverlap: false,
-        timeRangeSelectedHandling: "Disabled",
-        eventDeleteHandling: "Disabled",
-        eventMoveHandling: "Disabled",
-        eventResizeHandling: "Disabled",
-        eventClickHandling: "Disabled",
-        eventHoverHandling: "Disabled",
-      });
-
-
-            dp.events.list.push(@ViewBag.eventos) ;
-      dp.init();
-        </script>
-    }*@
-
-@*----------------------------------------------------*@
-
-
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    @*<title>daypilot-project</title>*@
-
-    <style type="text/css">
-        p, body, td {
-            font-family: Tahoma, Arial, Helvetica, sans-serif;
-            font-size: 10pt;
-        }
-
-        body {
-            padding: 0px;
-            margin: 0px;
-            background-color: #ffffff;
-        }
-
-        a {
-            color: #1155a3;
-        }
-
-        .space {
-            margin: 10px 0px 10px 0px;
-        }
-
-        .header {
-            background: #003267;
-            background: linear-gradient(to right, #011329 0%,#00639e 44%,#011329 100%);
-            padding: 20px 10px;
-            color: white;
-            box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.75);
-        }
-
-            .header a {
-                color: white;
-            }
-
-            .header h1 a {
-                text-decoration: none;
-            }
-
-            .header h1 {
-                padding: 0px;
-                margin: 0px;
-            }
-
-        .main {
-            padding: 10px;
-            margin-top: 10px;
-        }
-
-        .generated {
-            color: #999;
-            margin-top: 10px;
-        }
-
-            .generated a {
-                color: #999;
-            }
-    </style>
-
-    <!-- DayPilot library -->
-    <script src="js/daypilot/daypilot-all.min.js"></script>
-    @*<script src="js/daypilot-all.min.js"></script>*@
-
-
-</head>
-<body>
-    <!-- <div class="header"> -->
-    <!-- <h1>daypilot-project</h1> -->
-    <!-- <div><a href="https://javascript.daypilot.org/">DayPilot for JavaScript</a> - HTML5 Calendar/Scheduling Components for JavaScript/Angular/React/Vue</div> -->
-    <!-- </div> -->
-
-    <div class="main">
-        <div id="dp"></div>
-        <div class="generated">Generated using <a href="https://builder.daypilot.org/">DayPilot UI Builder</a>.</div>
-    </div>
+@section Scripts{
 
     <script>
-  var dp = new DayPilot.Calendar("dp", {
+    var dp = new DayPilot.Calendar("dp", {
     locale: "es-es",
     viewType: "Day",
     cellHeight: 30,
@@ -123,17 +19,35 @@
     eventResizeHandling: "Disabled",
     eventClickHandling: "Disabled",
     eventHoverHandling: "Disabled",
-  });
-  dp.events.list = @*@viewbag.eventos*@[
-    {
-  id: "1",
-  start: DayPilot.Date.today().addHours(10),
-  end: DayPilot.Date.today().addHours(12),
-  text: "Event 1",
-    }
-  ];
-  dp.init();
-    </script>
+    });
+        //dp.event.list = []
 
-</body>
-</html>
+
+    cargarAgenda(dp);
+    function cargarAgenda(dp) {
+    $.ajax({
+    url: 'Home/TraerAgenda',
+    type: 'GET',
+    dataType: "json",
+        success: function (data) {
+            for (var i = 0; i < data.length; i++) {
+                var e = new DayPilot.Event({
+                    start: new DayPilot.Date(data[i].start),
+                    end: new DayPilot.Date(data[i].end),
+                    id: data[i].id,
+                    text: data[i].text
+                });
+                dp.events.add(e);
+            }
+    //dp.event.list = data;
+    dp.init();
+    }
+    });
+    }
+
+
+    @*dp.events.list.push(@ViewBag.eventos) ;
+        dp.init();*@
+    </script>
+}
+

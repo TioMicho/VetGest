@@ -15,7 +15,7 @@ namespace VetGest.Models
         public DateTime Fecha { get; set; }
         public Guid ClienteID { get; set; }
         public string Lugar { get; set; }
-        public string PacienteID { get; set; }
+        public Guid PacienteID { get; set; }
         public string Telefono { get; set; }
         public Cliente Cliente { get; set; }
         public Paciente Paciente { get; set; }

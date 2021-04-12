@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VetGest.Data;
 
 namespace VetGest.Migrations
 {
     [DbContext(typeof(VetGestContext))]
-    partial class VetGestContextModelSnapshot : ModelSnapshot
+    [Migration("20210412191151_fix1")]
+    partial class fix1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -360,39 +362,6 @@ namespace VetGest.Migrations
                     b.ToTable("Revisiones");
                 });
 
-            modelBuilder.Entity("VetGest.Models.TurnoPeluqueria", b =>
-                {
-                    b.Property<Guid>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("ClienteID")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("Fecha")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Lugar")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("PacienteID")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Telefono")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UsuarioId")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("ClienteID");
-
-                    b.HasIndex("PacienteID");
-
-                    b.ToTable("TurnoPeluquerias");
-                });
-
             modelBuilder.Entity("VetGest.Models.Usuario", b =>
                 {
                     b.Property<string>("Id")
@@ -568,25 +537,6 @@ namespace VetGest.Migrations
                         .IsRequired();
 
                     b.Navigation("Caso");
-                });
-
-            modelBuilder.Entity("VetGest.Models.TurnoPeluqueria", b =>
-                {
-                    b.HasOne("VetGest.Models.Cliente", "Cliente")
-                        .WithMany()
-                        .HasForeignKey("ClienteID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("VetGest.Models.Paciente", "Paciente")
-                        .WithMany()
-                        .HasForeignKey("PacienteID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Cliente");
-
-                    b.Navigation("Paciente");
                 });
 #pragma warning restore 612, 618
         }

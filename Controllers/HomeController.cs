@@ -27,20 +27,34 @@ namespace VetGest.Controllers
 
         public IActionResult Index(Guid? id)
         {
+            //string usuarioId = _userManager.GetUserId(HttpContext.User);
+            //var lista = _context.Agendas.Where(u => u.UsuarioId == usuarioId && u.Inicio == DateTime.Today.Date).ToList();
+            //var eventos = from le in lista
+            //              select new
+            //              {
+            //                  id = le.AgendaID,
+            //                  start = le.Inicio,
+            //                  end = le.Fin,
+            //                  text = le.Evento,
+            //              };
+            //ViewBag.eventos = Json(eventos.ToList());
+            return View();
+        }
+        public JsonResult TraerAgenda()
+        {
             string usuarioId = _userManager.GetUserId(HttpContext.User);
-            var lista = _context.Agendas.Where(u => u.UsuarioId == usuarioId && u.Inicio == DateTime.Today.Date).ToList();
+            //var lista = _context.Agendas.Where(u => u.UsuarioId == usuarioId && u.Inicio == DateTime.Today.Date).ToList();
+            var lista = _context.Agendas.ToList();
             var eventos = from le in lista
                           select new
                           {
-                              id = le.AgendaID,
+                              id = "1",
                               start = le.Inicio,
                               end = le.Fin,
                               text = le.Evento,
                           };
-            ViewBag.eventos = Json(eventos.ToList());
-            return View();
+            return  Json(eventos.ToList());
         }
-
         public IActionResult Privacy()
         {
             return View();
