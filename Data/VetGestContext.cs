@@ -19,6 +19,7 @@ namespace VetGest.Data
         public DbSet<PlanSanitario> PlanSanitarios { get; set; }
         public DbSet<VetGest.Models.Cliente> Cliente { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<Agenda> Agendas { get; set; }
 
     }
 }

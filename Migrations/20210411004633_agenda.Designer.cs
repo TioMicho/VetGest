@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VetGest.Data;
 
 namespace VetGest.Migrations
 {
     [DbContext(typeof(VetGestContext))]
-    partial class VetGestContextModelSnapshot : ModelSnapshot
+    [Migration("20210411004633_agenda")]
+    partial class agenda
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -169,7 +171,7 @@ namespace VetGest.Migrations
                     b.Property<int>("TipoEvento")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("UsuarioId")
+                    b.Property<Guid>("UsuarioId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("AgendaID");

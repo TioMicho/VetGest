@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VetGest.Data;
 
 namespace VetGest.Migrations
 {
     [DbContext(typeof(VetGestContext))]
-    partial class VetGestContextModelSnapshot : ModelSnapshot
+    [Migration("20210411011006_agenda2")]
+    partial class agenda2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
